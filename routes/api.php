@@ -12,8 +12,6 @@ Route::post('/auth/signin', ['uses' => 'AuthController@signin']);
 
 Route::group(['middleware' => 'jwt.auth'], function() {
 
-  Route::get('/test', function(){
-    dd('You are Authenticated');
-  });
+  Route::get('/user', ['uses' => 'UserController@index']);
 
 });
