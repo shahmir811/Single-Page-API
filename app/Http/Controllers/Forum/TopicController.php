@@ -7,6 +7,7 @@ use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\TopicTransformer;
+use App\Http\Requests\Forum\CreateTopicFormRequest;
 
 class TopicController extends Controller
 {
@@ -20,9 +21,16 @@ class TopicController extends Controller
     dd('show');
   }
 
-  public function store(Request $request)
+  public function store(CreateTopicFormRequest $request)
   {
-    dd('store');
+    $topic = $request->user()->topics()->create([
+        'title'      => $request->json('title'),
+        'slug'       => str_slug($request->json('title')),
+        'body'       => $request->json('body'),
+        'section_id' => $request->json('section_id'),
+    ]);
+
+
   }
 
 
