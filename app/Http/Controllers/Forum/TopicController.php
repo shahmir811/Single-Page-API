@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\TopicTransformer;
 use App\Http\Requests\Forum\CreateTopicFormRequest;
+use App\Http\Requests\Forum\GetTopicsFormRequest;
 
 class TopicController extends Controller
 {
-  public function index(Request $request, Section $section)
+  public function index(GetTopicsFormRequest $request, Section $section)
   {
-    dd('index');
+    $topics = $section->find($request->get('section_id'))->topics()->latestFirst()->get(); //Grab All The Topics under the passed section_id and orderBy desc
+
+    return fractal()
+        ->collection($topics)
+        ->includeUser()
+        ->transformWith(new TopicTransformer)
+        ->toArray();
   }
 
   public function show(Topic $topic)
