@@ -30,6 +30,11 @@ class TopicController extends Controller
         'section_id' => $request->json('section_id'),
     ]);
 
+    return fractal()
+        ->item($topic)
+        ->includeUser()
+        ->transformWith(new TopicTransformer)
+        ->toArray();
 
   }
 
