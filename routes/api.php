@@ -17,5 +17,6 @@ Route::group(['middleware' => 'jwt.auth'], function() {
 
   Route::get('/user', ['uses' => 'UserController@index']);
   Route::post('topic', ['uses' => 'Forum\TopicController@store']);
+  Route::post('topic/{topic}/post', ['uses' => 'Forum\PostController@store']);
 
 });
