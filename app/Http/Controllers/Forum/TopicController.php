@@ -7,8 +7,8 @@ use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\TopicTransformer;
-use App\Http\Requests\Forum\CreateTopicFormRequest;
 use App\Http\Requests\Forum\GetTopicsFormRequest;
+use App\Http\Requests\Forum\CreateTopicFormRequest;
 
 class TopicController extends Controller
 {
@@ -28,6 +28,7 @@ class TopicController extends Controller
     return fractal()
         ->item($topic)
         ->includeUser()
+        ->includePosts()
         ->transformWith(new TopicTransformer)
         ->toArray();
   }
